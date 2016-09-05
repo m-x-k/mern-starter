@@ -1,8 +1,34 @@
 # mern-starter
 
-Work-in-progress!
+Simple MERN (Mongo, Express, Reactjs, Node) example.
 
-* Initial start - standard node.js install setup for now!
+# Requires
 
+* Nodejs
+* NPM
+* Mongo
 
+# Configuration
+
+Edit server.js to change the default settings (e.g. server PORT, mongo HOST/PORT).
+
+# Setup
+
+To download required javascript dependencies:
+
+```
+npm install
+```
+
+# Run
+
+To startup the application:
+
+```
+npm start
+```
+
+# Test
+
+Go to: http://localhost:8080
 
