@@ -1,4 +1,4 @@
-# mern-starter
+# MERN Starter project
 
 Simple MERN (Mongo, Express, Reactjs, Node) example.
 
