@@ -28,7 +28,12 @@ To startup the application:
 npm start
 ```
 
+Go to: http://localhost:8080
+
 # Test
 
-Go to: http://localhost:8080
+To run the unit tests execute mocha from the root of the project.
+```
+mocha
+```
 
