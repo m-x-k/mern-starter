@@ -6,6 +6,8 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const monk = require('monk');
 
+var http = require('http');
+
 var db = monk('localhost:27017/test');
 var collection = db.get('comments');
 
@@ -14,7 +16,7 @@ const PORT = 8080;
 var COMMENTS_FILE = path.join(__dirname, 'comments.json');
 
 // App
-const app = express();
+var app = express();
 app.use(express.static('app'));
 app.use('/bootstrap', express.static(path.join(__dirname,"node_modules/bootstrap/dist/")));
 app.use('/babel-core', express.static(path.join(__dirname,"node_modules/babel-core/")));
@@ -25,6 +27,10 @@ app.use('/remarkable', express.static(path.join(__dirname,"node_modules/remarkab
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.get('/health', function(req, res) {
+    res.status(200).send('ok');
+});
 
 app.get('/api/comments', function(req, res) {
     var comments = collection.find({},{limit:20},function(e,docs){
@@ -39,9 +45,13 @@ app.post('/api/comments', function(req, res) {
       text: req.body.text,
     };
 
-	collection.insert(newComment);
-	res.redirect('/api/comments')
+	  collection.insert(newComment);
+	  res.redirect('/api/comments')
 });
 
-app.listen(PORT);
-console.log('Running on http://localhost:' + PORT);
+var server = http.createServer(app);
+server.listen(PORT, function() {
+  console.log("Node server running on http://localhost:" + PORT);
+});
+
+module.exports = app;
